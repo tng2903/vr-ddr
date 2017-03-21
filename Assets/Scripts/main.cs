@@ -27,7 +27,7 @@ public class main : MonoBehaviour {
     // make it get kb input
 
 	// Use this for initialization
-	void Start () {
+	public void Start() {
         // System.Windows.Forms.FolderBrowserDialog fbd = new System.Windows.Forms.FolderBrowserDialog();
 		// System.Windows.Forms.DialogResult result = fbd.ShowDialog();
         // Debug.Log(fbd.SelectedPath);
@@ -45,7 +45,13 @@ public class main : MonoBehaviour {
         // Song_Parser.Metadata meta = parser.Parse("Dir: D:\\ddrvr\\ddrvr\\Assets\\simfile | Amount: 0");
         //Song_Parser.Metadata 
         // meta = parser.Parse("D:\\ddrvr\\ddrvr\\Assets\\simfile\\Eros and Apollo\\eros.sm");
-        meta = parser.Parse("Assets\\simfile\\cheatcodes\\cheatcodes.sm");
+
+        var menu = FindObjectOfType<Menufy>();
+        var path = menu.song;
+        DestroyObject(menu);
+        meta = parser.Parse(path);
+        
+
        	// meta = parser.Parse("D:\\ddrvr\\ddrvr\\Assets\\simfile\\Vinyl\\Vinyl.sm");
         //audioSource.PlayDelayed(meta.offset); // can pas a delay an an argument
         GameObject manager = GameObject.FindGameObjectWithTag("GameManager");
