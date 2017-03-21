@@ -66,7 +66,7 @@ public class main : MonoBehaviour {
         }*/
         audioSource.Play();
         //audioSource.PlayDelayed(300000);
-        StartCoroutine(stopDelay(60f));
+        StartCoroutine(stopDelay(audioSource.clip.length));
 
         //Song_Parser.NoteData notes = parser.ParseNotes("D:\\ddrvr\\ddrvr\\Assets\\simfile\\Vinyl\\Lone Digger.sm");
         // StartCoroutine(LoadTrack(meta.musicPath, meta));
