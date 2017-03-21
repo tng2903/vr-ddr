@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Audio;
+using UnityEngine.Networking;
 
 public class main : MonoBehaviour {
 
@@ -47,10 +48,12 @@ public class main : MonoBehaviour {
         // meta = parser.Parse("D:\\ddrvr\\ddrvr\\Assets\\simfile\\Eros and Apollo\\eros.sm");
 
         var menu = FindObjectOfType<Menufy>();
-        var path = menu.song;
+        var path = menu.songPath;
+        audioSource.clip = menu.songClip;
         DestroyObject(menu);
-        meta = parser.Parse(path);
-        
+
+
+        meta = parser.Parse(path);       
 
        	// meta = parser.Parse("D:\\ddrvr\\ddrvr\\Assets\\simfile\\Vinyl\\Vinyl.sm");
         //audioSource.PlayDelayed(meta.offset); // can pas a delay an an argument

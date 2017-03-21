@@ -4,13 +4,14 @@ using UnityEngine;
 using System.IO;
 using System.Linq;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 public class Menufy : MonoBehaviour
 {
     public string SongBaseDir = "Assets//simfile";
     private string[] songs;
 
-    public string song;
+    public string songPath;
 
     // Use this for initialization
     void Start()
@@ -38,17 +39,43 @@ public class Menufy : MonoBehaviour
 
     }
 
+    
     void SelectSong()
     {
-        song = songs[selection];
-        print(song+", I choose you!");
-        //Application.LoadLevel("game");
-        DontDestroyOnLoad(gameObject);
-        SceneManager.LoadScene("game");
-        //var main = Object.FindObjectOfType<main>();
-        //print(main);
+        songPath = songs[selection];
+        print(songPath+", I choose you!");
+        StartCoroutine(LoadAudio());
+    }
+
+    public AudioClip songClip;
+
+    IEnumerator LoadAudio()
+    {
         
-        //var main2 = GameObject.Find("main");
-        //print(main2);
+
+        var dir = Path.GetDirectoryName(songPath);
+        var musicPath = Path.GetFullPath(Directory.GetFiles(dir, "*.ogg")[0]);
+        musicPath = new System.Uri(musicPath).AbsoluteUri;
+        //TODO fuck the police. may crash.
+        print(musicPath);
+        print("go go power rangers");
+        using (var www = UnityWebRequest.GetAudioClip(musicPath, AudioType.OGGVORBIS))
+        {
+            yield return www.Send();
+            if (www.isError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                songClip = DownloadHandlerAudioClip.GetContent(www);
+
+                DontDestroyOnLoad(gameObject);
+                SceneManager.LoadScene("game");
+
+                //AudioSource.PlayClipAtPoint(songClip, Vector3.zero);
+                // raise da roof!!!
+            }
+        }
     }
 }
