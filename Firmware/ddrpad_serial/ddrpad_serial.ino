@@ -22,11 +22,11 @@ void loop() {
     //Serial.write(v?'1':'0');
   }
 
-  if(state!=lastState){
+  //if(state!=lastState){
     Serial.println(state, BIN);
     Serial.flush();
     lastState = state;
-  }
+  //}
   
   
 }

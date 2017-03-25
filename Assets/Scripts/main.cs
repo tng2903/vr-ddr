@@ -9,6 +9,8 @@ using UnityEngine.Networking;
 
 public class main : MonoBehaviour {
 
+    public SerialPad pad;
+
     [DllImport("user32.dll")]
     private static extern void FolderBrowserDialog();
 

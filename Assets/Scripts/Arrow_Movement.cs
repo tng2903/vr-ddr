@@ -18,7 +18,10 @@ public class Arrow_Movement : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        switch(GetComponent<SpriteRenderer>().sprite.name)
+
+        pad = FindObjectOfType<SerialPad>();
+
+        switch (GetComponent<SpriteRenderer>().sprite.name)
         {
             case "arrowsheet_down":
                 dir = direction.down;
@@ -44,6 +47,8 @@ public class Arrow_Movement : MonoBehaviour {
     private direction[] dirLUTdown = {  direction.down,   direction.right,     direction.up, direction.left};
     private direction[] dirLUTleft = {  direction.left,   direction.down,     direction.right, direction.up};
 
+    public SerialPad pad;
+
     void Update() {
         float arrowSpeed = Step_Generator.arrowSpeed;
         Vector3 tempPos = transform.position;
@@ -66,20 +71,20 @@ public class Arrow_Movement : MonoBehaviour {
                         Debug.Log("UP PRESS!   "+dirLUTup[openCyl] + "," + openCyl+","+dir);
                         // Debug.Log(dirLUTup[openCyl]);
         }*/
-        if (Input.GetKeyDown(KeyCode.Keypad8) && dir == dirLUTup[openCyl])
+        if (pad.justPressedDown[SerialPad.UpPort]  && dir == dirLUTup[openCyl])
         {
             CheckLocation();
         }
 
-        if (Input.GetKeyDown(KeyCode.Keypad4) && dir == dirLUTleft[openCyl])
+        if (pad.justPressedDown[SerialPad.LeftPort] && dir == dirLUTleft[openCyl])
         {
             CheckLocation();
         }
-        if (Input.GetKeyDown(KeyCode.Keypad2) && dir == dirLUTdown[openCyl])
+        if (pad.justPressedDown[SerialPad.DownPort] && dir == dirLUTdown[openCyl])
         {
             CheckLocation();
         }
-        if (Input.GetKeyDown(KeyCode.Keypad6) && dir == dirLUTright[openCyl])
+        if (pad.justPressedDown[SerialPad.RightPort] && dir == dirLUTright[openCyl])
         {
             CheckLocation();
         }
